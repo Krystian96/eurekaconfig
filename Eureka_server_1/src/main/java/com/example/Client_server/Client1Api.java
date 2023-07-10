@@ -1,14 +1,26 @@
 package com.example.Client_server;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @RestController
-//@RequestMapping("/products")
 public class Client1Api {
- /*   private static List<Product> productList = new ArrayList();
+/*
+ProductInterface productInterface;
+@GetMapping("/customers/{name}")
+public List<Product> getCustomerByName(@PathVariable String name) {
+    //log.info("Getting customer by name {} ", name);
+    List customerList = productInterface.findByName(name);
+    //log.info("Received {} customers by name {}", customerList.size(), name);
+    return customerList;
+}
+*/
+private static List<Product> productList = new ArrayList();
 
     static {
         productList.add(new Product(1, "product-1", 12.0));
@@ -16,15 +28,13 @@ public class Client1Api {
         productList.add(new Product(3, "product-3", 9.0));
     }
 
-
-
     @GetMapping("/products")
     public ResponseEntity<?> getProsucts() {
         return ResponseEntity.ok(productList);
     }
 
     @GetMapping("/product/{id}")
-    public ResponseEntity<?> getProsucts(@PathVariable int id) {
+    public ResponseEntity <?> getProsucts(@PathVariable int id) {
         Product product = findProduct(id);
         if (product == null) {
             return ResponseEntity.badRequest()
@@ -39,15 +49,7 @@ public class Client1Api {
                         .equals(id))
                 .findFirst()
                 .orElse(null);
-    }*/
-private final ProductRepository productRepository;
-
-    public Client1Api(ProductRepository productRepository) {
-        this.productRepository = productRepository;
-
-    }
-    @GetMapping
-    public ResponseEntity getAllProducts(){
-        return ResponseEntity.ok(this.productRepository.findAll());
     }
 }
+
+
